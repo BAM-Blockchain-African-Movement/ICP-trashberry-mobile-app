@@ -1,5 +1,4 @@
-/// AUTHOR: Henry Azer
-/// DATE: 23-10-2023
+/// AUTHOR:Mouliom Fitzgerard
 /// UTIL: DATE UTIL
 class DateUtil {
   /// Now Date

@@ -1,15 +1,20 @@
+import 'package:camera/camera.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
 import 'package:trash_berry/utils/colors.dart';
 import 'package:trash_berry/utils/app_string.dart';
+import 'package:trash_berry/utils/app_navigator.dart';
 import 'package:trash_berry/utils/asset_manager.dart';
 import 'package:trash_berry/utils/mediaquery_manager.dart';
+import 'package:trash_berry/utils/local_cache_manager.dart';
+import 'package:trash_berry/views/trashberry/screen_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 //import 'package:flutter_gif/flutter_gif.dart';
 
 class Onboard extends StatefulWidget {
-  const Onboard({super.key});
+  List<CameraDescription> cameras;
+  Onboard({super.key, required this.cameras});
 
   @override
   State<Onboard> createState() => _OnboardState();
@@ -123,9 +128,11 @@ class _OnboardState extends State<Onboard> with SingleTickerProviderStateMixin {
   ElevatedButton button(BuildContext context, double sWidth) {
     return ElevatedButton(
       onPressed: () {
-        // Navigator.of(context).push(
-        //   MaterialPageRoute(builder: (context) => const Login()),
-        // );
+        LocalCacheManager.setFlag(name: "onboarding_completed", value: true);
+        AppNavigator.push(context,
+            destination: ScreenPage(
+              cameras: widget.cameras,
+            ));
       },
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.green,
@@ -181,7 +188,7 @@ Widget PageDetail(
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: AppColors.dark,
-                        fontSize: 21),
+                        fontSize: 24),
                     textAlign: TextAlign.center,
                   ),
                 ),
